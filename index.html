@@ -185,11 +185,8 @@
   var fireballSize = 22;
 
   function getFireballSpeed(isWindFromLeft) {
-    if (isWindFromLeft) {
-      return 5;
-    }
-
-    return 2;
+    var fireballSpeed = isWindFromLeft ? 5 : 2;
+    return fireballSpeed;
   }
 
   var wizardWidth = 70;
@@ -198,7 +195,7 @@
     return 1.337 * wizardWidth;
   }
 
-  var wizardSpeed = 1;
+  var wizardSpeed = 3;
 
   function getWizardX(gameFieldWidth) {
     return (gameFieldWidth - wizardWidth) / 2;
@@ -208,13 +205,6 @@
     return gameFieldHeight / 3;
   }
 
-
-  // размер фаербола был равен 22
-    // если ветер слева, то фаербол летит по ветру и скорость его равна 5, иначе он летит против ветра со скоростью 2;
-    // маг двигался со скоростью 3;
-    // ширина мага была равна 70, а высота мага считалась по формуле 1.337 * ширину мага;
-    // начальное положение мага по горизонтали: центр фигурки находится ровно посередине игрового поля;
-    // начальное положение мага по вертикали: фигурка находится на высоте две трети игрового поля от земли.
 </script>
 
 <script src="js/game.js"></script>
