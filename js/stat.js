@@ -10,6 +10,7 @@ var BAR_TEXT_GAP = 10;
 var BAR_GAP = 50;
 var BAR_HEIGHT_MAX = 150;
 var BAR_WIDTH = 40;
+var TEXT_MESSAGE = 'Ура вы победили!\nСписок результатов:';
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -36,9 +37,10 @@ var renderColumn = function (ctx, players, times, maxTime, i) {
   return ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - TEXT_GAP - BAR_TEXT_GAP, BAR_WIDTH, -(BAR_HEIGHT_MAX * times / maxTime));
 };
 
-
-// var renderText = function (text) {
-// }
+var renderText = function (textString, numberSubString) {
+  var arrayOfString = textString.split('\n');
+  return arrayOfString[numberSubString];
+};
 
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, 'rgba(0, 0, 0, 0.7)');
@@ -47,8 +49,8 @@ window.renderStatistics = function (ctx, players, times) {
   ctx.fillStyle = '#000';
   ctx.font = '16px PT Mono';
   ctx.textBaseline = 'hanging';
-  ctx.fillText('Ура вы победили!', CLOUD_X + TEXT_GAP, CLOUD_Y + TEXT_GAP);
-  ctx.fillText('Список результатов:', CLOUD_X + TEXT_GAP, CLOUD_Y + TEXT_GAP * 2);
+  ctx.fillText(renderText(TEXT_MESSAGE, 0), CLOUD_X + TEXT_GAP, CLOUD_Y + TEXT_GAP);
+  ctx.fillText(renderText(TEXT_MESSAGE, 1), CLOUD_X + TEXT_GAP, CLOUD_Y + TEXT_GAP * 2);
 
   var maxTime = getMaxElement(times);
 
@@ -59,11 +61,6 @@ window.renderStatistics = function (ctx, players, times) {
     ctx.fillStyle = 'hsl(240,' + (Math.round(100 * Math.random())) + '%, 50%)';
 
     renderColumn(ctx, players[i], times[i], maxTime, i);
-    // if (players[i] === 'Вы') {
-    //   ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-    // }
-
-    // ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - TEXT_GAP - BAR_TEXT_GAP, BAR_WIDTH, -(BAR_HEIGHT_MAX * times[i] / maxTime));
   }
 // Содержимое этого цикла давай также оформим как отдельная фукция отрисовки одного столбца.
 // Так в дальнейшем будет проще редактировать стиль отрисовки при изменении.
