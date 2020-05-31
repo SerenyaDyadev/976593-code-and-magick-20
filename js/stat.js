@@ -17,6 +17,18 @@ var renderCloud = function (ctx, x, y, color) {
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
+var renderText = function (ctx, textString) {
+  ctx.fillStyle = '#000';
+  ctx.font = '16px PT Mono';
+  ctx.textBaseline = 'hanging';
+  var arrayOfString = textString.split('\n');
+
+  for (var i = 0; i < arrayOfString.length; i++) {
+    ctx.fillText(arrayOfString[i], CLOUD_X + TEXT_GAP, CLOUD_Y + (TEXT_GAP + TEXT_GAP * i));
+  }
+};
+
+
 var getMaxElement = function (arr) {
   var maxElement = arr[0];
 
@@ -29,39 +41,27 @@ var getMaxElement = function (arr) {
   return maxElement;
 };
 
-var renderColumn = function (ctx, players, times, maxTime, i) {
-  if (players === 'Вы') {
-    ctx.fillStyle = 'rgba(255, 0, 0, 1)';
-  }
-
-  return ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - TEXT_GAP - BAR_TEXT_GAP, BAR_WIDTH, -(BAR_HEIGHT_MAX * times / maxTime));
-};
-
-var renderText = function (textString, numberSubString) {
-  var arrayOfString = textString.split('\n');
-  return arrayOfString[numberSubString];
-};
-
-window.renderStatistics = function (ctx, players, times) {
-  renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
-
-  ctx.fillStyle = '#000';
-  ctx.font = '16px PT Mono';
-  ctx.textBaseline = 'hanging';
-  ctx.fillText(renderText(TEXT_MESSAGE, 0), CLOUD_X + TEXT_GAP, CLOUD_Y + TEXT_GAP);
-  ctx.fillText(renderText(TEXT_MESSAGE, 1), CLOUD_X + TEXT_GAP, CLOUD_Y + TEXT_GAP * 2);
-
+var renderColumn = function (ctx, players, times) {
   var maxTime = getMaxElement(times);
 
   for (var i = 0; i < players.length; i++) {
     ctx.fillStyle = '#000';
     ctx.fillText(players[i], CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - TEXT_GAP);
     ctx.fillText(Math.round(times[i]), CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - (BAR_HEIGHT_MAX * times[i] / maxTime) - BAR_GAP);
-    ctx.fillStyle = 'hsl(240,' + (Math.round(100 * Math.random())) + '%, 50%)';
 
-    renderColumn(ctx, players[i], times[i], maxTime, i);
+    if (players[i] === 'Вы') {
+      ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    } else {
+      ctx.fillStyle = 'hsl(240,' + (Math.round(100 * Math.random())) + '%, 50%)';
+    }
+
+    ctx.fillRect(CLOUD_X + BAR_WIDTH + (BAR_WIDTH + BAR_GAP) * i, CLOUD_HEIGHT - TEXT_GAP - BAR_TEXT_GAP, BAR_WIDTH, -(BAR_HEIGHT_MAX * times[i] / maxTime));
   }
-// Содержимое этого цикла давай также оформим как отдельная фукция отрисовки одного столбца.
-// Так в дальнейшем будет проще редактировать стиль отрисовки при изменении.
+};
+
+window.renderStatistics = function (ctx, players, times) {
+  renderCloud(ctx, CLOUD_X + CLOUD_GAP, CLOUD_Y + CLOUD_GAP, 'rgba(0, 0, 0, 0.7)');
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
+  renderText(ctx, TEXT_MESSAGE);
+  renderColumn(ctx, players, times);
 };
