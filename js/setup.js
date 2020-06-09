@@ -34,7 +34,7 @@ var personages = getArrayPersonages(NUMBER_PERSONS);
 // Создайте массив, состоящий из 4-х сгенерированных JS объектов, которые будут описывать похожих персонажей. Объекты должны содержать следующие поля:
 
 var userDialog = document.querySelector('.setup');
-userDialog.classList.remove('hidden');
+// userDialog.classList.remove('hidden');
 // Покажите блок .setup, убрав в JS-коде у него класс hidden.
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
@@ -60,3 +60,16 @@ for (var i = 0; i < personages.length; i++) {
 similarListElement.appendChild(fragment);
 
 userDialog.querySelector('.setup-similar').classList.remove('hidden');
+
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = document.querySelector('.setup-close');
+
+setupOpen.addEventListener('click', function () {
+  userDialog.classList.remove('hidden');
+  
+});
+
+setupClose.addEventListener('click', function () {
+  userDialog.classList.add('hidden');
+});
+
