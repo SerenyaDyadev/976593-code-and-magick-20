@@ -59,7 +59,11 @@ var setupClose = userDialog.querySelector('.setup-close');
 var inputUserName = document.querySelector('.setup-user-name');
 var MIN_NAME_LENGTH = 2;
 var MAX_NAME_LENGTH = 25;
-.setup-wizard .wizard-coat
+var setupWizard = userDialog.querySelector('.setup-wizard');
+var wizardCoat = setupWizard.querySelector('.wizard-coat');
+
+// console.log(wizardCoat.style.fill);
+
 inputUserName.addEventListener('invalid', function (evt) {
   if (inputUserName.validity.tooShort) {
     inputUserName.setCustomValidity('Имя должно состоять минимум из 2-х символов');
@@ -123,4 +127,10 @@ setupClose.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     closePopup();
   }
+});
+
+wizardCoat.addEventListener('click', function () {
+
+  wizardCoat.style.fill = getRandomElement(COAT_COLORS);
+  userDialog.querySelector('input[name="coat-color"]').value = wizardCoat.style.fill;
 });
