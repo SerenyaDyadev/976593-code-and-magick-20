@@ -4,6 +4,7 @@ var NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Крис�
 var FAMILY_NAMES = ['да Марьян', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var NUMBER_PERSONS = 4;
 
 var getRandomElement = function (elements) {
@@ -61,8 +62,8 @@ var MIN_NAME_LENGTH = 2;
 var MAX_NAME_LENGTH = 25;
 var setupWizard = userDialog.querySelector('.setup-wizard');
 var wizardCoat = setupWizard.querySelector('.wizard-coat');
-
-// console.log(wizardCoat.style.fill);
+var wizardEyes = setupWizard.querySelector('.wizard-eyes');
+var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
 
 inputUserName.addEventListener('invalid', function (evt) {
   if (inputUserName.validity.tooShort) {
@@ -130,7 +131,19 @@ setupClose.addEventListener('keydown', function (evt) {
 });
 
 wizardCoat.addEventListener('click', function () {
+  var color = getRandomElement(COAT_COLORS);
+  wizardCoat.style.fill = color;
+  userDialog.querySelector('input[name="coat-color"]').value = color;
+});
 
-  wizardCoat.style.fill = getRandomElement(COAT_COLORS);
-  userDialog.querySelector('input[name="coat-color"]').value = wizardCoat.style.fill;
+wizardEyes.addEventListener('click', function () {
+  var color = getRandomElement(EYES_COLOR);
+  wizardEyes.style.fill = color;
+  userDialog.querySelector('input[name="eyes-color"]').value = color;
+});
+
+setupFireballWrap.addEventListener('click', function () {
+  var color = getRandomElement(FIREBALL_COLOR);
+  setupFireballWrap.style.backgroundColor = color;
+  userDialog.querySelector('input[name="fireball-color"]').value = color;
 });
