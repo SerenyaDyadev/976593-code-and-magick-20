@@ -20,7 +20,6 @@ var getObjectPerson = function () {
   return person;
 };
 
-// можно добавить параметр для колличества генерируемых персон
 var getArrayPersonages = function (number) {
   var arrayPersonages = [];
   for (var i = 0; i < number; i++) {
@@ -31,17 +30,13 @@ var getArrayPersonages = function (number) {
 };
 
 var personages = getArrayPersonages(NUMBER_PERSONS);
-// Создайте массив, состоящий из 4-х сгенерированных JS объектов, которые будут описывать похожих персонажей. Объекты должны содержать следующие поля:
 
 var userDialog = document.querySelector('.setup');
-// userDialog.classList.remove('hidden');
-// Покажите блок .setup, убрав в JS-коде у него класс hidden.
 
 var similarListElement = userDialog.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template')
   .content
   .querySelector('.setup-similar-item');
-// шаблона #similar - wizard - template
 
 var renderWizard = function (wizard) {
   var wizardElement = similarWizardTemplate.cloneNode(true);
@@ -59,17 +54,48 @@ for (var i = 0; i < personages.length; i++) {
 
 similarListElement.appendChild(fragment);
 
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
-
 var setupOpen = document.querySelector('.setup-open');
-var setupClose = document.querySelector('.setup-close');
+var setupClose = userDialog.querySelector('.setup-close');
+var setupUserName = document.querySelector('.setup-user-name');
+// var setupSubmit = userDialog.querySelector('.setup-submit')
+
+var onPopupEscPress = function (evt) {
+  if (!setupUserName.matches(':focus')) {
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      closePopup();
+    }
+  }
+};
+
+var openPopup = function () {
+  userDialog.classList.remove('hidden');
+
+  document.addEventListener('keydown', onPopupEscPress);
+};
+
+var closePopup = function () {
+  userDialog.classList.add('hidden');
+
+  document.removeEventListener('keydown', onPopupEscPress);
+};
 
 setupOpen.addEventListener('click', function () {
-  userDialog.classList.remove('hidden');
-  
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    openPopup();
+  }
 });
 
 setupClose.addEventListener('click', function () {
-  userDialog.classList.add('hidden');
+  closePopup();
 });
 
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    closePopup();
+  }
+});
