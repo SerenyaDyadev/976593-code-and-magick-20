@@ -6,6 +6,8 @@ var COAT_COLORS = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161
 var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var NUMBER_PERSONS = 4;
+var MIN_NAME_LENGTH = 2;
+var MAX_NAME_LENGTH = 25;
 
 var getRandomElement = function (elements) {
   return elements[Math.round(Math.random() * (elements.length - 1))];
@@ -58,8 +60,6 @@ similarListElement.appendChild(fragment);
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = userDialog.querySelector('.setup-close');
 var inputUserName = document.querySelector('.setup-user-name');
-var MIN_NAME_LENGTH = 2;
-var MAX_NAME_LENGTH = 25;
 var setupWizard = userDialog.querySelector('.setup-wizard');
 var wizardCoat = setupWizard.querySelector('.wizard-coat');
 var wizardEyes = setupWizard.querySelector('.wizard-eyes');
