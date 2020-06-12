@@ -65,7 +65,7 @@ var wizardCoat = setupWizard.querySelector('.wizard-coat');
 var wizardEyes = setupWizard.querySelector('.wizard-eyes');
 var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
 
-inputUserName.addEventListener('invalid', function (evt) {
+inputUserName.addEventListener('invalid', function () {
   if (inputUserName.validity.tooShort) {
     inputUserName.setCustomValidity('Имя должно состоять минимум из 2-х символов');
   } else if (inputUserName.validity.tooLong) {
@@ -77,7 +77,7 @@ inputUserName.addEventListener('invalid', function (evt) {
   }
 });
 
-inputUserName.addEventListener('input', function (evt) {
+inputUserName.addEventListener('input', function () {
   var valueLength = inputUserName.value.length;
 
   if (valueLength < MIN_NAME_LENGTH) {
