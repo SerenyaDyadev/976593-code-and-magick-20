@@ -56,6 +56,7 @@ for (var i = 0; i < personages.length; i++) {
 }
 
 similarListElement.appendChild(fragment);
+userDialog.querySelector('.setup-similar').classList.remove('hidden');
 
 var setupOpen = document.querySelector('.setup-open');
 var setupClose = userDialog.querySelector('.setup-close');
