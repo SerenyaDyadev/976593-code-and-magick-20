@@ -54,6 +54,9 @@
 
   var closePopup = function () {
     userDialog.classList.add('hidden');
+    // вернем окно в изначальное положение сли его перемещали
+    userDialog.style.top = '';
+    userDialog.style.left = '';
 
     document.removeEventListener('keydown', onPopupEscPress);
   };
