@@ -1,4 +1,55 @@
 'use strict';
+(function () {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  var URL = 'https://javascript.pages.academy/code-and-magick';
+
+  window.upload = function (data, onSuccess) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
+
+    xhr.addEventListener('load', function () {
+      onSuccess(xhr.response);
+    });
+
+    xhr.open('POST', URL);
+    xhr.send(data);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+})();
+
+
+'use strict';
 
 (function () {
   var MAX_SIMILAR_WIZARD_COUNT = 4;
