@@ -23,22 +23,20 @@
     var fragment = document.createDocumentFragment();
 
     for (var i = 0; i < MAX_SIMILAR_WIZARD_COUNT; i++) {
-      fragment.appendChild(renderWizard(wizards[i]));
+      fragment.appendChild(renderWizard(window.util.getRandomElement(wizards)));
     }
     similarListElement.appendChild(fragment);
 
     userDialog.querySelector('.setup-similar').classList.remove('hidden');
   };
 
-  // console.log('1');
-  // console.log(window.backend.load(successHandler, errorHandler));
-  window.backend.load(successHandler);
+  window.backend('https://javascript.pages.academy/code-and-magick/data', 'GET', successHandler);
 
   var form = userDialog.querySelector('.setup-wizard-form');
   form.addEventListener('submit', function (evt) {
-    window.backend.save(new FormData(form), function () {
+    window.backend('https://javascript.pages.academy/code-and-magick', 'POST', function () {
       userDialog.classList.add('hidden');
-    });
+    }, new FormData(form));
     evt.preventDefault();
   });
 
