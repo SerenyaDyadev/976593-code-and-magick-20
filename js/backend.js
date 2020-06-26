@@ -47,11 +47,7 @@
 
     xhr.timeout = TIMEOUT_IN_MS;
 
-    if (action !== 'POST') {
-      xhr.send();
-    } else {
-      xhr.send(data);
-    }
+    xhr.send(data);
   };
 
   window.backend = backend;
