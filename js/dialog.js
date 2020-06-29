@@ -70,22 +70,4 @@
   setupClose.addEventListener('keydown', function (evt) {
     window.util.isEnterEvent(evt, closePopup);
   });
-/* для моков
-  var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
-  var inputFireball = userDialog.querySelector('input[name="fireball-color"]');
-  window.colorize(setupFireballWrap, window.colors.FIREBALL_COLOR, inputFireball);
-
-
-  var setupWizard = userDialog.querySelector('.setup-wizard');
-  var wizardCoat = setupWizard.querySelector('.wizard-coat');
-  var wizardEyes = setupWizard.querySelector('.wizard-eyes');
-  var setupFireballWrap = userDialog.querySelector('.setup-fireball-wrap');
-  var inputCoat = userDialog.querySelector('input[name="coat-color"]');
-  var inputEyes = userDialog.querySelector('input[name="eyes-color"]');
-  var inputFireball = userDialog.querySelector('input[name="fireball-color"]');
-
-  window.colorize(wizardCoat, window.colors.COAT_COLORS, inputCoat);
-  window.colorize(wizardEyes, window.colors.EYES_COLORS, inputEyes);
-  window.colorize(setupFireballWrap, window.colors.FIREBALL_COLOR, inputFireball);
-  */
 })();
