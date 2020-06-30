@@ -1,32 +1,48 @@
 'use strict';
 
 (function () {
-  var MAX_SIMILAR_WIZARD_COUNT = 4;
-
   var userDialog = document.querySelector('.setup');
+  var coatColor = 'rgb(101, 137, 164)';
+  var eyesColor = 'black';
+  var wizards = [];
 
-  var similarListElement = userDialog.querySelector('.setup-similar-list');
-  var similarWizardTemplate = document.querySelector('#similar-wizard-template')
-    .content
-    .querySelector('.setup-similar-item');
+  var getRank = function (wizard) {
+    var rank = 0;
 
-  var renderWizard = function (wizard) {
-    var wizardElement = similarWizardTemplate.cloneNode(true);
-    wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-    wizardElement.querySelector('.wizard-eyes').style.fill = wizard.colorEyes;
-    wizardElement.querySelector('.wizard-coat').style.fill = wizard.colorCoat;
+    if (wizard.colorCoat === coatColor) {
+      rank += 2;
+    }
+    if (wizard.colorEyes === eyesColor) {
+      rank += 1;
+    }
 
-    return wizardElement;
+    return rank;
   };
 
-  var successHandler = function (wizards) {
-    var fragment = document.createDocumentFragment();
+  var updateWizards = function () {
+    window.render(wizards.slice().
+      sort(function (left, right) {
+        var rankDiff = getRank(right) - getRank(left);
+        if (rankDiff === 0) {
+          rankDiff = wizards.indexOf(left) - wizards.indexOf(right);
+        }
+        return rankDiff;
+      }));
+  };
 
-    for (var i = 0; i < MAX_SIMILAR_WIZARD_COUNT; i++) {
-      fragment.appendChild(renderWizard(window.util.getRandomElement(wizards)));
-    }
-    similarListElement.appendChild(fragment);
+  window.wizard.onEyesChange = window.debounce(function (color) {
+    eyesColor = color;
+    updateWizards();
+  });
 
+  window.wizard.onCoatChange = window.debounce(function (color) {
+    coatColor = color;
+    updateWizards();
+  });
+
+  var successHandler = function (data) {
+    wizards = data;
+    updateWizards();
     userDialog.querySelector('.setup-similar').classList.remove('hidden');
   };
 
@@ -39,5 +55,4 @@
     }, new FormData(form));
     evt.preventDefault();
   });
-
 })();
